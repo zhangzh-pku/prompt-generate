@@ -1,21 +1,29 @@
-// src/components/Sidebar.tsx
-import React from 'react';
-import { List, ListItem, ListItemText } from '@mui/material';
+import React from "react";
+import {
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 
 interface SidebarProps {
   onSelectApi: (api: string) => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ onSelectApi }) => {
-  const apiList = ['Image API', 'Chat API'];
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    onSelectApi(event.target.value);
+  };
 
   return (
-    <List>
-      {apiList.map((api, index) => (
-        <ListItem button key={index} onClick={() => onSelectApi(api)}>
-          <ListItemText primary={api} />
-        </ListItem>
-      ))}
-    </List>
+    <FormControl fullWidth>
+      <Select label="Select API" defaultValue="" onChange={handleChange}>
+        <MenuItem value="">
+          <em>please choose a application</em>
+        </MenuItem>
+        <MenuItem value="Image API">Mid Jounery</MenuItem>
+        <MenuItem value="Chat API">ChatGPT</MenuItem>
+      </Select>
+    </FormControl>
   );
 };
